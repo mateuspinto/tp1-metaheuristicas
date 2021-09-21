@@ -2,10 +2,10 @@ mod common;
 use rand::Rng;
 
 fn f(xs: (f64, f64)) -> f64 {
-    //1 // degree_to_rad(xs.0 + xs.1).sin() + (xs.0 - xs.1).powi(2) - 1.5 * xs.0 + 2.5 * xs.1 + 1.0
-    //2 // -1.0 * (xs.1 + 47.0) * degree_to_rad((xs.0 / 2.0 + (xs.1 + 47.0)).abs().sqrt()).sin() - 1.0 * xs.0 * degree_to_rad((xs.0 - (xs.1 + 47.0)).abs().sqrt()).sin()
+    //1 // (xs.0 + xs.1).sin() + (xs.0 - xs.1).powi(2) - 1.5 * xs.0 + 2.5 * xs.1 + 1.0
+    //2 // -1.0 * (xs.1 + 47.0) * ((xs.0 / 2.0 + (xs.1 + 47.0)).abs().sqrt()).sin() - 1.0 * xs.0 * ((xs.0 - (xs.1 + 47.0)).abs().sqrt()).sin()
     //
-    degree_to_rad(xs.0 + xs.1).sin() + (xs.0 - xs.1).powi(2) - 1.5 * xs.0 + 2.5 * xs.1 + 1.0
+    (xs.0 + xs.1).sin() + (xs.0 - xs.1).powi(2) - 1.5 * xs.0 + 2.5 * xs.1 + 1.0
 }
 
 fn main() {
@@ -22,14 +22,10 @@ fn main() {
             rng.gen_range(bounds.0 .0..=bounds.0 .1),
             rng.gen_range(bounds.1 .0..=bounds.1 .1),
         );
-        let result = common::hill_climb(start_solution, f, bounds, 0.5, 0.1, 1000, &mut rng);
+        let result = common::ils(start_solution, f, bounds, 0.5, 1.0, 1000, &mut rng);
         // common::hill_climb(start_solution, f, bounds, 0.5, 0.1, 1000, &mut rng);
         // common::ils(start_solution, f, bounds, 0.5, 1.0, 1000, &mut rng);
 
         println!("{}", f(result));
     }
-}
-
-fn degree_to_rad(degree: f64) -> f64 {
-    degree * std::f64::consts::PI / 180.0
 }
