@@ -22,7 +22,7 @@ fn main() {
             rng.gen_range(bounds.0 .0..=bounds.0 .1),
             rng.gen_range(bounds.1 .0..=bounds.1 .1),
         );
-        let result = common::ils(start_solution, f, bounds, 0.5, 1.0, 1000, &mut rng);
+        let result = common::hill_climb(start_solution, f, bounds, 0.5, 0.1, 1000, &mut rng);
         // common::hill_climb(start_solution, f, bounds, 0.5, 0.1, 1000, &mut rng);
         // common::ils(start_solution, f, bounds, 0.5, 1.0, 1000, &mut rng);
 
